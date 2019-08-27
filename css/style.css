@@ -11,3 +11,13 @@ td {
     width: 10%; /* 横10マス */
     height: 5%; /* 縦20マス */
 }
+
+/* ブロックを示すCSS */
+/* 何もない */
+.default {
+    background-color: #455A64;
+}
+/* ブロック */
+.stick {
+    background-color: #03A9F4;
+}
