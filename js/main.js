@@ -65,6 +65,27 @@ function fall() {
     }
 }
 
+//ブロックを呼び出す
+function genBlock(blockNum) {
+    switch (blockNum) {
+        case 1:
+            array[0][5] = blockNum;
+            array[1][5] = blockNum;
+            array[2][5] = blockNum;
+            array[3][5] = blockNum;
+            break;
+    }
+}
+//スペースキーを押したとき
+document.onkeydown = function(e) { // キーボードの処理はこのように書きます
+    switch (e.code) {
+        case "Space":
+            genBlock(1);
+            break;
+    }
+    draw();
+}
+
 draw(); // 読込が完了したらまず表示
 setInterval(function() {
     fall();
