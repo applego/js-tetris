@@ -45,6 +45,9 @@ var move = [
 ];
 // 動かす対象があるかどうか(0はない、1はあることを示す)
 var moveFlag = 0;
+// スタートしたかどうか（0してない、1した）
+var gamestartFlag = 0;
+
 
 // 描画処理
 function draw() {
@@ -105,25 +108,92 @@ function resetMove() {
             move[i][j] = 0;
         }
     }
-    genBlock(1);
+    genBlock();
 }
 
 //ブロックを呼び出す
-function genBlock(blockNum) {
+function genBlock() {
+    var blockNum = Math.floor(Math.random() * 7);
     if(moveFlag === 1){
         return;
     }
     switch (blockNum) {
-        case 1:
-            array[0][5] = blockNum;
-            array[1][5] = blockNum;
-            array[2][5] = blockNum;
-            array[3][5] = blockNum;
+        case 0://I
+            array[0][5] =  1;
+            array[1][5] =  1;
+            array[2][5] =  1;
+            array[3][5] =  1;
             // moveも一緒に変更する
             move[0][5] = 1;
             move[1][5] = 1;
             move[2][5] = 1;
             move[3][5] = 1;
+            break;
+        case 1://T
+            array[0][2] =  1;
+            array[0][3] =  1;
+            array[0][4] =  1;
+            array[1][3] =  1;
+            // moveも一緒に変更する
+            move[0][2] =  1;
+            move[0][3] =  1;
+            move[0][4] =  1;
+            move[1][3] =  1;
+            break;
+        case 2://□
+            array[0][4] =  1;
+            array[0][5] =  1;
+            array[1][4] =  1;
+            array[1][5] =  1;
+            // moveも一緒に変更する
+             move[0][4] =  1;
+             move[0][5] =  1;
+             move[1][4] =  1;
+             move[1][5] =  1;
+            break;
+        case 3://_|￣
+            array[0][4] =  1;
+            array[0][5] =  1;
+            array[1][3] =  1;
+            array[1][4] =  1;
+            // moveも一緒に変更する
+            move[0][4] =  1;
+            move[0][5] =  1;
+            move[1][3] =  1;
+            move[1][4] =  1;
+            break;
+        case 4://￣|_
+            array[0][3] =  1;
+            array[0][4] =  1;
+            array[1][4] =  1;
+            array[1][5] =  1;
+            // moveも一緒に変更する
+            move[0][3] =  1;
+            move[0][4] =  1;
+            move[1][4] =  1;
+            move[1][5] =  1;
+            break;
+        case 5://L1
+            array[0][3] =  1;
+            array[0][4] =  1;
+            array[0][5] =  1;
+            array[1][5] =  1;
+            // moveも一緒に変更する
+            move[0][3] =  1;
+            move[0][4] =  1;
+            move[0][5] =  1;
+            move[1][5] =  1;
+            break;
+        case 5://L2
+            array[0][5] =  1;
+            array[1][3] =  1;
+            array[1][4] =  1;
+            array[1][5] =  1;
+            // moveも一緒に変更する
+            move[0][5] =  1;
+            move[1][3] =  1;
+            move[1][4] =  1;
+            move[1][5] =  1;
             break;
     }
     moveFlag = 1;
@@ -173,7 +243,7 @@ function checkDelete() {
 document.onkeydown = function(e) {
     switch (e.code) {
         case "Space":
-            genBlock(1);
+            genBlock();
             break;
         // ここから下を追加する
         case "ArrowRight":
@@ -186,10 +256,19 @@ document.onkeydown = function(e) {
     draw();
 }
 
-genBlock(1);
-draw(); // 読込が完了したらまず表示
-setInterval(function() {
-    checkDelete();
-    fall();
-    draw();
-}, 500); // 0.5秒ごとに表示を更新していきます
+$(document).ready(function(){
+    $(".gameStart").on({
+        'click':function(){
+            genBlock();
+            draw(); // 読込が完了したらまず表示
+            setInterval(function() {
+                checkDelete();
+                fall();
+                draw();
+            }, 500); // 0.5秒ごとに表示を更新していきます
+        },
+        'mouseenter':function(){
+            console.log("gameStartにマウスが重なった");
+        }
+    })
+  });
